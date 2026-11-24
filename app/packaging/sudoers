@@ -1,0 +1,10 @@
+# Installed by nobgp-omarchy.
+#
+# The noBGP agent's status lives behind a root-only socket, so
+# `nobgp status` elevates. This lets members of wheel (Omarchy's admin
+# group) read it without a password, so the bar widget can show the
+# connection state. It allows exactly `nobgp status --json` and nothing else:
+# sudo matches the arguments literally, so `nobgp status --json --x` or any
+# other subcommand still asks for a password.
+Cmnd_Alias NOBGP_STATUS = /usr/local/bin/nobgp status --json, /usr/bin/nobgp status --json, /usr/share/nobgp/nobgp status --json
+%wheel ALL=(root) NOPASSWD: NOBGP_STATUS

@@ -1,0 +1,5 @@
+app/build/
+app/packaging/archlinux/*.tar.gz
+app/packaging/archlinux/*.pkg.tar.zst
+app/packaging/archlinux/src/
+app/packaging/archlinux/pkg/

@@ -1,0 +1,50 @@
+# Maintainer: noBGP, Inc. <support@nobgp.com>
+#
+# noBGP for Omarchy: a terminal app, an Omarchy bar widget and menu rows on
+# top of the noBGP agent's own CLI. Build from a source tarball made by
+# `make dist` in the repo root.
+pkgname=nobgp-omarchy
+pkgver=0.2.0
+pkgrel=1
+pkgdesc='noBGP for Omarchy: status, peers, services and host settings in a TUI, the bar and the menu'
+arch=('x86_64' 'aarch64')
+url='https://nobgp.com'
+license=('MIT')
+depends=('glibc' 'sudo' 'wl-clipboard')
+makedepends=('go')
+optdepends=('openssh: ssh to peers from the Peers tab')
+install=nobgp-omarchy.install
+# Stripped Go binary: a -debug package would carry nothing.
+options=('!debug')
+source=("${pkgname}-${pkgver}.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  export CGO_ENABLED=0
+  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+  go build -ldflags "-s -w -X main.version=${pkgver}" -o nobgp-omarchy ./cmd/nobgp-omarchy
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+  go test ./...
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  install -Dm755 nobgp-omarchy "${pkgdir}/usr/bin/nobgp-omarchy"
+  install -Dm644 packaging/nobgp-omarchy.desktop "${pkgdir}/usr/share/applications/nobgp-omarchy.desktop"
+  install -Dm644 packaging/nobgp.svg "${pkgdir}/usr/share/icons/hicolor/scalable/apps/nobgp.svg"
+  # Lets the bar read `nobgp status --json` without a password; see the file.
+  # sudoers.d is 750 on Arch; match it so pacman does not warn.
+  install -dm750 "${pkgdir}/etc/sudoers.d"
+  install -Dm440 packaging/sudoers "${pkgdir}/etc/sudoers.d/nobgp-omarchy"
+  # The bar plugin and menu rows, for reference; `nobgp-omarchy setup`
+  # installs them into the user's ~/.config.
+  install -Dm644 desktop/plugin/manifest.json "${pkgdir}/usr/share/nobgp-desktop/plugin/manifest.json"
+  install -Dm644 desktop/plugin/Status.qml "${pkgdir}/usr/share/nobgp-desktop/plugin/Status.qml"
+  install -Dm755 desktop/plugin/install.sh "${pkgdir}/usr/share/nobgp-desktop/plugin/install.sh"
+  install -Dm644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+  [ ! -f LICENSE ] || install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}

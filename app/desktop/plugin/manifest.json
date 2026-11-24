@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "com.nobgp.status",
+  "name": "noBGP",
+  "version": "0.2.0",
+  "author": "noBGP, Inc.",
+  "license": "MIT",
+  "description": "noBGP in the Omarchy bar: connection state and peers. Click to open the noBGP app, or to install it.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Status.qml"
+  },
+  "barWidget": {
+    "displayName": "noBGP",
+    "description": "Connection state and peer count; left opens the noBGP app, right the web console, middle refreshes.",
+    "category": "Network",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "refreshIntervalSec": 30
+    },
+    "schema": [
+      {
+        "key": "refreshIntervalSec",
+        "type": "integer",
+        "label": "Refresh interval (seconds)",
+        "min": 10,
+        "max": 3600,
+        "step": 5,
+        "defaultValue": 30
+      }
+    ]
+  }
+}

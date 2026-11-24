@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=noBGP
+GenericName=Private network
+Comment=Status, peers, services and host settings for your noBGP network
+Exec=omarchy-launch-or-focus-tui nobgp-omarchy
+Icon=nobgp
+Terminal=false
+Categories=Network;System;
+Keywords=nobgp;network;vpn;peers;
+StartupWMClass=org.omarchy.nobgp-omarchy

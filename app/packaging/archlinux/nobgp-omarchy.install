@@ -1,0 +1,20 @@
+post_install() {
+  if ! command -v nobgp >/dev/null 2>&1 && [ ! -x /usr/local/bin/nobgp ]; then
+    echo ""
+    echo "nobgp-omarchy needs the noBGP agent:"
+    echo "    curl -fsSL https://downloads.nobgp.com/agent/install.sh | sh"
+  fi
+  echo ""
+  echo "Run this as your own user (not root) to add noBGP to the Omarchy menu and bar:"
+  echo "    nobgp-omarchy setup"
+  echo ""
+}
+
+post_upgrade() {
+  echo "Run 'nobgp-omarchy setup' again to update the bar widget and menu rows."
+}
+
+pre_remove() {
+  echo "To remove the menu rows and bar widget from your desktop first, run:"
+  echo "    nobgp-omarchy setup --remove"
+}
