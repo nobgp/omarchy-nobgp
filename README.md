@@ -1,3 +1,5 @@
+<p align="center"><img src="logo.svg" width="180" alt="noBGP"></p>
+
 # noBGP for Omarchy
 
 ![noBGP in the Omarchy bar](preview.png)
