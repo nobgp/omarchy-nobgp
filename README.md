@@ -16,9 +16,9 @@ omarchy plugin add https://github.com/nobgp/omarchy-nobgp --enable
 
 Or add it from the [Omarchy plugin marketplace](https://omarchyplugins.com), or from the Omarchy plugins list in My Own Data Center.
 
-The noBGP icon appears in the bar. If this machine doesn't have noBGP yet, the icon says so: click it, and a terminal installs the two pieces the widget needs, showing every step and asking for your sudo password itself:
+The noBGP icon appears in the bar. If this machine doesn't have noBGP yet, the icon says so: click it, and a terminal walks you through the two pieces the widget needs, showing every step and asking for your sudo password itself:
 
-1. the **noBGP agent**, from noBGP's own installer at `downloads.nobgp.com`, which shows a sign-in link to add this machine to your account;
+1. the **noBGP agent**: the terminal shows noBGP's official installer command and puts it on your clipboard, and you run it yourself (this plugin never downloads and runs code for you). It shows a sign-in link to add this machine to your account;
 2. the **noBGP app** (`nobgp-omarchy`), from the AUR when it's there, otherwise built from the source in [`app/`](app/).
 
 You can run the same installer yourself: `bash ~/.config/omarchy/plugins/com.nobgp.status/install.sh`. Adding the plugin runs nothing; Omarchy plugins have no install hook.
